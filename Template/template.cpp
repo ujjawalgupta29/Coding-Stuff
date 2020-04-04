@@ -5,6 +5,7 @@ using namespace std;
 #define v(n) vector<int> v(n)
 #define ifor(i, a, b) for(int i=a; i<b; i++)
 #define dfor(i, a, b) for(int i=a; i>=b; i--)
+typedef map<int, int> MI;
 typedef vector<int> VI;
 typedef vector<vector<int>> VV;
 
