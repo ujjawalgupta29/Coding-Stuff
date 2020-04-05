@@ -8,6 +8,12 @@ using namespace std;
 typedef map<int, int> MI;
 typedef vector<int> VI;
 typedef vector<vector<int>> VV;
+static auto x = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
 
 void binarySearch(VI &nums, int l, int r, int target, bool left, VI &range)
 {
