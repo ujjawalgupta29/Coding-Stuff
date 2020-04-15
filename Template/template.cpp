@@ -7,6 +7,7 @@ using namespace std;
 #define dfor(i, a, b) for(int i=a; i>=b; i--)
 typedef map<int, int> MI;
 typedef vector<int> VI;
+typedef vector<long long> VL;
 typedef vector<char> VC;
 typedef vector<string> VS;
 typedef vector<vector<int>> VV;
