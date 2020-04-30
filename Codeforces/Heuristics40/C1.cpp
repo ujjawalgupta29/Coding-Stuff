@@ -18,14 +18,17 @@ static auto x = [](){
     return nullptr;
 }();
 
-int solve(VL nums)
+ll solve(VL nums)
 {
-    int n = nums.size();
+    ll n = nums.size();
+    if(n == 1)
+        return 1;
+        
     VL left(n, 0);
     VL right(n, 0);
     left[0] = 1;
     right[n-1] = 1;
-    ll res = INT_MIN;
+    ll res = 0;
 
     ifor(i, 1, n)
     {
@@ -35,7 +38,6 @@ int solve(VL nums)
         {
             left[i] = 1;
         }
-        res = max(res, left[i]);
     }
 
     dfor(i, n-2, 0)
@@ -48,10 +50,18 @@ int solve(VL nums)
         }
     }
 
+    ll l = 1; 
+    for (ll i = 1; i < n; i++) { 
+        if (nums[i] > nums[i - 1]) 
+            l++; 
+        else
+            l = 1; 
+        res = max(res, l); 
+    } 
 
     ifor(i, 1, n-1)
     {
-        if(nums[i] < nums[i+1])
+        if(nums[i-1] < nums[i+1])
             res = max(res, left[i-1] + right[i+1]);
     }
 
