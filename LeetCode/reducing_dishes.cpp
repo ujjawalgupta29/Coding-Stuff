@@ -1,25 +1,23 @@
 class Solution {
 public:
     int maxSatisfaction(vector<int>& s) {
-        sort(s.begin(), s.end());
         int n = s.size();
+        sort(s.begin(), s.end());
         
-        int max_s = 0;
+        int res= 0;
+        int sum_till_now = 0;
         
-        for(int i=0; i<n; i++)
+        for(int i=n-1; i>=0; i--)
         {
-            for(int j=0; j<=i; j++)
+            if(s[i] + sum_till_now <= 0)
             {
-                int counter = 1;
-                int temp_s = 0;
-                for(int k=j; k<=i; k++)
-                {
-                    temp_s += (counter++) * s[k];
-                }
-                max_s = max(max_s, temp_s);
+                break;
             }
+                
+            sum_till_now += s[i];
+            res += sum_till_now;
         }
         
-        return max_s;
+        return res;
     }
 };
