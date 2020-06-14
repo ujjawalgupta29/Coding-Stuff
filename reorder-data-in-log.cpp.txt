@@ -1,0 +1,56 @@
+class Solution {
+public:
+    
+    int SpaceIndex(string log)
+    {
+        int i=0;
+        while(log[i] != ' ')
+            i++;
+        
+        return i;
+    }
+    
+    vector<string> reorderLogFiles(vector<string>& logs) {
+        int len = logs.size();
+        
+        if(len == 0)
+            return vector<string>();
+        
+        vector<string> digits;
+        vector<pair<string, string>> letters;
+        vector<string> res;
+        
+        for(int i=0; i<len; i++)
+        {
+            int first_space = SpaceIndex(logs[i]);
+            if(isdigit(logs[i][first_space+1]))
+                digits.push_back(logs[i]);
+            else
+            {
+                letters.push_back({logs[i].substr(0, first_space), 
+                                  logs[i].substr(first_space)});
+            }
+        }
+        
+        sort(letters.begin(), letters.end(), [](const pair<string, string> &v1, 
+                                               const pair<string, string> &v2)
+             {
+                if(v1.second == v2.second)
+                    return v1.first < v2.first;
+                 
+                 return v1.second < v2.second;
+             });
+        
+        for(int i=0; i<letters.size(); i++)
+        {
+            res.push_back(letters[i].first + letters[i].second);
+        }
+        
+        for(int i=0; i<digits.size(); i++)
+        {
+            res.push_back(digits[i]);
+        }
+        
+        return res;
+    }
+};
