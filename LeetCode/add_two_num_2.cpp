@@ -1,24 +1,27 @@
-static auto x = [](){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return nullptr;
-}();
-
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        vector<int> s1, s2;
+        string s1, s2;
         
         while(l1)
         {
-            s1.push_back(l1->val);
+            s1 += to_string(l1->val);
             l1 = l1->next;
         }
         
         while(l2)
         {
-            s2.push_back(l2->val);
+            s2 += to_string(l2->val);
             l2 = l2->next;
         }
         
@@ -26,11 +29,14 @@ public:
         int len2 = s2.size() - 1;
         int carry = 0;
         ListNode* result = NULL;
+        // cout << s1 << " " << s2 << endl;
+        // cout << " len 1 = " << len1 << " len2 = " << len2 << endl;
         
         while(len1 >= 0 || len2 >= 0 || carry)
         {
-            int x = (len1 >= 0) ? (s1[len1--]) : 0;
-            int y = (len2 >= 0) ? (s2[len2--]) : 0;
+            // cout << len1 << " " << len2 << " " << carry << endl;
+            int x = (len1 >= 0) ? (s1[len1--] - '0') : 0;
+            int y = (len2 >= 0) ? (s2[len2--] - '0') : 0;
             int sum = x + y + carry;
             carry = sum/10;
             int val = sum%10;
