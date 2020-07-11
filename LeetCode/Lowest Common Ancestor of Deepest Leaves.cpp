@@ -36,7 +36,7 @@ public:
         height(root->left, curr_ht + 1);
         height(root->right, curr_ht + 1);
     }
-    
+        
     
     TreeNode* findLCA(TreeNode* root, int ht, int curr_ht)
     {

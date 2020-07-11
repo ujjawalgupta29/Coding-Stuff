@@ -1,53 +1,69 @@
+static auto x = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
         int m = grid.size();
-        int n = grid[0].size();
+        if(!m)
+            return 0;
         
-        int counts = 0, days = -1;
+        int n = grid[0].size();
+        if(!n)
+            return 0;
+        
+        int fresh_oranges = 0;
+        int time = -1;
+        
         queue<pair<int, int>> q;
-        vector<vector<int>> dir={{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         
         for(int i=0; i<m; i++)
         {
             for(int j=0; j<n; j++)
             {
-                if(grid[i][j] > 0)
-                    counts++;
-                if(grid[i][j] == 2)
-                    q.push({i,j});
+                if(grid[i][j] == 1)
+                    fresh_oranges++;
+                else if(grid[i][j] == 2)
+                    q.push({i, j});
             }
         }
         
+        vector<int> dir = {-1, 0, 1, 0, -1};
+        
         while(!q.empty())
         {
-            days++;
             int sz = q.size();
+            time++;
             
             for(int i=0; i<sz; i++)
             {
                 auto p = q.front();
-                counts--;
                 q.pop();
+                int x = p.first;
+                int y = p.second;
                 
-                for(int j=0; j<4; j++)
+                for(int d=0; d<4; d++)
                 {
-                    int x = dir[j][0] + p.first;
-                    int y = dir[j][1] + p.second;
+                    int r = x + dir[d];
+                    int c = y + dir[d+1];
                     
-                    if(x < 0 || y < 0 || x >= m || y>= n || grid[x][y] != 1)
+                    if(r < 0 || r >= m || c < 0 || c >= n || grid[r][c] != 1)
                         continue;
-                    grid[x][y] = 2;
-                    q.push({x,y});
+                    fresh_oranges--;
+                    grid[r][c] = 2;
+                    q.push({r, c});
                 }
             }
+                
         }
         
-        if(counts == 0)
-            return max(0, days);
+        if(fresh_oranges == 0)
+            return max(0, time);
         
-        else
-            return -1;
+        return -1;
     }
-    
 };
