@@ -9,11 +9,12 @@
  */
 class Solution {
 public:
-    unordered_map <TreeNode*, TreeNode*> mp;
+    
+    unordered_map<TreeNode*, TreeNode*> mp;
     
     void dfs(TreeNode* root, TreeNode* parent)
     {
-        if(root == NULL)
+        if(!root)
             return;
         
         mp[root] = parent;
@@ -22,39 +23,39 @@ public:
     }
     
     vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
-        dfs(root, NULL);    
+        dfs(root, NULL);        
+        
+        unordered_set<TreeNode*> visited;
+        int level = 0;
         
         queue<TreeNode*> q;
-        unordered_set<TreeNode*> seen;
-        
         q.push(target);
-        seen.insert(target);
-        int level = 0;
+        visited.insert(target);
         
         while(level != K)
         {
             int sz = q.size();
             for(int i=0; i<sz; i++)
             {
-                TreeNode* node = q.front();
+                auto node = q.front();
                 q.pop();
                 
-                if(node->left != NULL && seen.find(node->left) == seen.end())
+                if(node->left && visited.find(node->left) == visited.end())
                 {
                     q.push(node->left);
-                    seen.insert(node->left);
+                    visited.insert(node->left);
                 }
                 
-                if(node->right != NULL && seen.find(node->right) == seen.end())
+                if(node->right && visited.find(node->right) == visited.end())
                 {
                     q.push(node->right);
-                    seen.insert(node->right);
+                    visited.insert(node->right);
                 }
                 
-                if(mp[node] != NULL && seen.find(mp[node]) == seen.end())
+                if(mp[node] && visited.find(mp[node]) == visited.end())
                 {
                     q.push(mp[node]);
-                    seen.insert(mp[node]);
+                    visited.insert(mp[node]);
                 }
             }
             level++;
@@ -64,8 +65,9 @@ public:
         
         while(!q.empty())
         {
-            res.push_back(q.front()->val);
+            auto node = q.front();
             q.pop();
+            res.push_back(node->val);
         }
         
         return res;
