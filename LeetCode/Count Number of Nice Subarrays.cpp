@@ -17,6 +17,7 @@ public:
             while(k < 0)
             {
                 k += nums[start] % 2;
+                
                 start++;
             }
             res += j - start + 1;
@@ -24,4 +25,4 @@ public:
         
         return res;
     }
-};
+};  
