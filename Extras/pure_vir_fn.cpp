@@ -16,7 +16,34 @@ static auto x = [](){
     return nullptr;
 }();
 
+class A {
+    public:
+
+    virtual void print() = 0;
+};
+
+void A::print()
+{
+    cout << "default" << endl;
+}
+
+class B : public A {
+    public:
+
+    void print()
+    {
+        cout << "Class B called";
+    }
+
+};
+
 int main()
 {
-
+    B b1;
+    A* a = &b1;
+    a->print();
+    
+    B b2;
+    A *a1 = &b2;
+    a1->print();
 }
