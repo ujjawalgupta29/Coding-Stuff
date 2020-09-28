@@ -41,18 +41,32 @@ int main()
             ll l=1;
             ll r=n;
 
+            bool flag = 0;
+
             while(l < r)
             {
                 ll mid = l + (r-l)/2;
+                ll curr_sum = (mid*(mid+1))/2;
+                if(curr_sum == half)
+                    flag = 1;
 
-                if((mid*(mid+1))/2 >= half)
+                if(curr_sum > half)
                     r = mid;
 
                 else 
                     l = mid + 1;
             }
+            ll ans = n-l+1;
 
-            cout << n-l+1 << endl;
+            if(flag)
+            {
+                ll left = ans;
+                ll right = n-ans;
+
+                ans += (left * (left-1))/2 + (right*(right-1))/2;
+            }
+
+            cout << ans << endl;
         }
         
     }
